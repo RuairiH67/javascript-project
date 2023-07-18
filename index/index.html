@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function getComputerChoice() {
+            const choices = ['Rock', 'Paper', 'Scissors'];
+            const randomIndex = Math.floor(Math.random() * choices.length);
+        return choices[randomIndex];
+        }
+
+        const playerChoice = playerSelection.toLowerCase();
+        const computerChoice = computerSelection.toLowerCase();
+v
+        function playComputer(playerSelection, computerSelection){
+            const winningCombinations = {
+                rock: 'scissors',
+                paper: 'rock',
+                scissors: 'paper'
+            };
+
+            if (playerSelection === computerSelection){
+                return "It's a tie!"
+            }
+
+            if (winningCombinations[playerSelection] === computerSelection){
+                return "You Win!";
+            }
+        }
+
+        function getComputerChoice() {
+  // Implementation of getComputerChoice function (as shown in previous examples)
+}
+
+function playRound(playerSelection, computerSelection) {
+  // Implementation of playRound function (as shown in previous examples)
+}
+
+function game() {
+  let playerScore = 0;
+  let computerScore = 0;
+
+  for (let round = 1; round <= 5; round++) {
+    console.log(`Round ${round}:`);
+    
+    const playerChoice = prompt("Enter your choice (Rock, Paper, or Scissors):");
+    const computerChoice = getComputerChoice();
+
+    const result = playRound(playerChoice, computerChoice);
+    console.log(result);
+
+    if (result.startsWith("You Win!")) {
+      playerScore++;
+    } else if (result.startsWith("You Lose!")) {
+      computerScore++;
+    }
+  }
+
+  console.log("Game Over!");
+  console.log(`Player Score: ${playerScore}`);
+  console.log(`Computer Score: ${computerScore}`);
+
+  if (playerScore > computerScore) {
+    console.log("Congratulations! You win the game!");
+  } else if (playerScore < computerScore) {
+    console.log("Sorry! You lose the game!");
+  } else {
+    console.log("It's a tie! The game ended in a draw.");
+  }
+}
+
+// Call the game function to start playing
+game();
+    </script>
+</body>
+</html>
