@@ -6,75 +6,90 @@
     <title>Document</title>
 </head>
 <body>
-    <script>
-        function getComputerChoice() {
-            const choices = ['Rock', 'Paper', 'Scissors'];
-            const randomIndex = Math.floor(Math.random() * choices.length);
-        return choices[randomIndex];
-        }
+  <div id="buttons-container">
+    <button id="rock-button">Rock</button>
+    <button id="paper-button">Paper</button>
+    <button id="scissors-button">Scissors</button>
+  </div>
 
-        const playerChoice = playerSelection.toLowerCase();
-        const computerChoice = computerSelection.toLowerCase();
-v
-        function playComputer(playerSelection, computerSelection){
-            const winningCombinations = {
-                rock: 'scissors',
-                paper: 'rock',
-                scissors: 'paper'
-            };
+  <div id="results-container">
+    <!-- Results will be displayed here -->
+  </div>
 
-            if (playerSelection === computerSelection){
-                return "It's a tie!"
-            }
-
-            if (winningCombinations[playerSelection] === computerSelection){
-                return "You Win!";
-            }
-        }
-
-        function getComputerChoice() {
-  // Implementation of getComputerChoice function (as shown in previous examples)
-}
-
-function playRound(playerSelection, computerSelection) {
-  // Implementation of playRound function (as shown in previous examples)
-}
-
-function game() {
-  let playerScore = 0;
-  let computerScore = 0;
-
-  for (let round = 1; round <= 5; round++) {
-    console.log(`Round ${round}:`);
-    
-    const playerChoice = prompt("Enter your choice (Rock, Paper, or Scissors):");
-    const computerChoice = getComputerChoice();
-
-    const result = playRound(playerChoice, computerChoice);
-    console.log(result);
-
-    if (result.startsWith("You Win!")) {
-      playerScore++;
-    } else if (result.startsWith("You Lose!")) {
-      computerScore++;
+  <script>
+    function getComputerChoice() {
+      const choices = ['Rock', 'Paper', 'Scissors'];
+      const randomIndex = Math.floor(Math.random() * choices.length);
+      return choices[randomIndex];
     }
-  }
 
-  console.log("Game Over!");
-  console.log(`Player Score: ${playerScore}`);
-  console.log(`Computer Score: ${computerScore}`);
+    let playerScore = 0;
+    let computerScore = 0;
 
-  if (playerScore > computerScore) {
-    console.log("Congratulations! You win the game!");
-  } else if (playerScore < computerScore) {
-    console.log("Sorry! You lose the game!");
-  } else {
-    console.log("It's a tie! The game ended in a draw.");
-  }
-}
+    function playRound(playerSelection, computerSelection) {
+      // Implementation of playRound function (as shown in previous examples)
+      // Return the result of the round (e.g., 'You Win!', 'You Lose!', or "It's a tie!")
+      if (playerSelection === computerSelection) {
+        return "It's a tie!";
+      } else if (
+        (playerSelection === 'Rock' && computerSelection === 'Scissors') ||
+        (playerSelection === 'Paper' && computerSelection === 'Rock') ||
+        (playerSelection === 'Scissors' && computerSelection === 'Paper')
+      ) {
+        playerScore++;
+        return 'You win!';
+      } else {
+        computerScore++;
+        return 'You lose!';
+      }
+    }
 
-// Call the game function to start playing
-game();
-    </script>
+    function handleButtonClick(playerSelection) {
+      if (playerScore < 5 && computerScore < 5) {
+        const computerChoice = getComputerChoice();
+        const result = playRound(playerSelection, computerChoice);
+        updateResults(result);
+
+        if (playerScore === 5) {
+          announceWinner('You');
+        } else if (computerScore === 5) {
+          announceWinner('Computer');
+        }
+      }
+    }
+
+    // Function to update the results container with the game outcome and the running score
+    function updateResults(result) {
+      const resultsContainer = document.getElementById('results-container');
+      const resultElement = document.createElement('p');
+      resultElement.textContent = result;
+      resultsContainer.appendChild(resultElement);
+
+      const scoreElement = document.createElement('p');
+      scoreElement.textContent = `Score: You ${playerScore} - ${computerScore} Computer`;
+      resultsContainer.appendChild(scoreElement);
+    }
+
+    // Function to announce the winner of the game
+    function announceWinner(winner) {
+      const resultsContainer = document.getElementById('results-container');
+      const winnerElement = document.createElement('p');
+      winnerElement.textContent = `Game over! ${winner} won the game!`;
+      resultsContainer.appendChild(winnerElement);
+
+      // Disable the buttons to prevent further gameplay
+      rockButton.removeEventListener('click', handleButtonClick);
+      paperButton.removeEventListener('click', handleButtonClick);
+      scissorsButton.removeEventListener('click', handleButtonClick);
+    }
+
+    const rockButton = document.getElementById('rock-button');
+    const paperButton = document.getElementById('paper-button');
+    const scissorsButton = document.getElementById('scissors-button');
+
+    rockButton.addEventListener('click', () => handleButtonClick('Rock'));
+    paperButton.addEventListener('click', () => handleButtonClick('Paper'));
+    scissorsButton.addEventListener('click', () => handleButtonClick('Scissors'));
+  </script>
 </body>
 </html>
